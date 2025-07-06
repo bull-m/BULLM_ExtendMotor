@@ -1,4 +1,4 @@
-# BULLM Extend Motor
+# BULLM_ExtendMotor
 
 本库为配合牛明工作室的8通道电机驱动扩展板而设计的库。
 
@@ -14,9 +14,12 @@
 [env:myenv]
 ...
 lib_deps = 
-  bullm/BULLM-Extend-Motor
+  bullm/BULLM_ExtendMotor
 ...
 ```
+
+### Arduino IDE
+在Arduino IDE中，直接在库管理器中搜索`BULLM_ExtendMotor`并安装即可。
 
 ## 简单示例
 
