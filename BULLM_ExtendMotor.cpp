@@ -77,7 +77,7 @@ void BULLM_ExtendMotor::stopAll(){
 
 /*!
  *  @brief  驱动指定电机
- *  @param  index 操作的电机,从1到8
+ *  @param  index 操作的电机,从0到7
  *  @param  value -255 ~ 255 负数反转，正数正转，0停止
  */
 void BULLM_ExtendMotor::setSpeed(uint8_t index, int value){
@@ -88,7 +88,7 @@ void BULLM_ExtendMotor::setSpeed(uint8_t index, int value){
 
 /*!
  *  @brief  驱动指定电机,高精度
- *  @param  index 操作的电机
+ *  @param  index 操作的电机,从0到7
  *  @param  value -4096 ~ 4096 负数反转，正数正转，0停止
  */
 void BULLM_ExtendMotor::setSpeedHigh(uint8_t index, int value){
@@ -96,17 +96,17 @@ void BULLM_ExtendMotor::setSpeedHigh(uint8_t index, int value){
     if(value > 4096) value = 4096;
     /*
      * 前进引脚和后退引脚
-     * 电机1：0脚和1脚
-     * 电机2：2脚和3脚
-     * 电机3：4脚和5脚
-     * 电机4：6脚和7脚
-     * 电机5：8脚和9脚
-     * 电机6：10脚和11脚
-     * 电机7：12脚和13脚
-     * 电机8：14脚和15脚
+     * 电机0：0脚和1脚
+     * 电机1：2脚和3脚
+     * 电机2：4脚和5脚
+     * 电机3：6脚和7脚
+     * 电机4：8脚和9脚
+     * 电机5：10脚和11脚
+     * 电机6：12脚和13脚
+     * 电机7：14脚和15脚
      */
-    uint8_t forward_i = (index - 1) * 2;
-    uint8_t reverse_i = (index - 1) * 2 + 1;
+    uint8_t forward_i = index * 2;
+    uint8_t reverse_i = index * 2 + 1;
     if(value >= 0){
         setPin(forward_i, std::abs(value));
         setPin(reverse_i, 0);

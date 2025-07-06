@@ -19,7 +19,6 @@ void speed_all(int speed){
 void loop() {
     speed_all(127);
     delay(1000);
-    speed_all(0);
     motor.stopAll();
     delay(1000);
     speed_all(-127);
