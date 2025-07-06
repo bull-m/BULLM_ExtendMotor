@@ -8,7 +8,7 @@
 
 ### PlatformIO
 
-在PlatformIO中使用本库，在`platformio.ini`中添加如下内容
+在PlatformIO中使用本库，在`platformio.ini`中添加如下内容或者通过UI搜索`BULLM_ExtendMotor`添加
 
 ```ini
 [env:myenv]
