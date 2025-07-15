@@ -70,7 +70,7 @@ void BULLM_ExtendMotor::setPin(uint8_t num, uint16_t val) {
  *  @brief  停止所有电机
  */
 void BULLM_ExtendMotor::stopAll(){
-    for(uint8_t i = 1; i <= 8; i++){
+    for(uint8_t i = 0; i < 8; i++){
         setSpeedHigh(i, 0);
     }
 }
@@ -92,6 +92,9 @@ void BULLM_ExtendMotor::setSpeed(uint8_t index, int value){
  *  @param  value -4096 ~ 4096 负数反转，正数正转，0停止
  */
 void BULLM_ExtendMotor::setSpeedHigh(uint8_t index, int value){
+    if(index < 0 || index > 7){
+        return;
+    }
     if(value < -4096) value = -4096;
     if(value > 4096) value = 4096;
     /*
