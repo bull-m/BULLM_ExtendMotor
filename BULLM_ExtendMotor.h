@@ -50,7 +50,7 @@ public:
     void setSpeedHigh(uint8_t index, int value);
     void stopAll();
 private:
-    Adafruit_PWMServoDriver *pwmDriver = NULL;
+    Adafruit_PWMServoDriver *pwmDriver = nullptr;
 };
 
 #endif

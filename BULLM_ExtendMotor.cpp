@@ -1,6 +1,4 @@
-#include <cstdint>
 #include "BULLM_ExtendMotor.h"
-
 
 BULLM_ExtendMotor::BULLM_ExtendMotor(){
     pwmDriver = new Adafruit_PWMServoDriver();
@@ -111,10 +109,10 @@ void BULLM_ExtendMotor::setSpeedHigh(uint8_t index, int value){
     uint8_t forward_i = index * 2;
     uint8_t reverse_i = index * 2 + 1;
     if(value >= 0){
-        setPin(forward_i, std::abs(value));
+        setPin(forward_i, value);
         setPin(reverse_i, 0);
     } else{
         setPin(forward_i, 0);
-        setPin(reverse_i, std::abs(value));
+        setPin(reverse_i, -value);
     }
 }

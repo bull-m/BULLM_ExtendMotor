@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <Wire.h>
-#include "../../BULLM_ExtendMotor.h"
+#include <BULLM_ExtendMotor.h>
 
-BULLM_ExtendMotor motor(127);
+BULLM_ExtendMotor motor(0x7F);
 
 void setup() {
     Wire.begin(4, 5);
@@ -11,7 +11,7 @@ void setup() {
 }
 
 void speed_all(int speed){
-    for (int i = 1; i <= 8; ++i) {
+    for (int i = 0; i < 8; ++i) {
         motor.setSpeed(i, speed);
     }
 }

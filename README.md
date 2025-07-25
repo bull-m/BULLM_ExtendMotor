@@ -8,7 +8,7 @@
 
 ### PlatformIO
 
-在PlatformIO中使用本库，在`platformio.ini`中添加如下内容或者通过UI搜索`BULLM_ExtendMotor`添加
+在PlatformIO中使用本库，在`platformio.ini`中添加如下内容或者通过UI搜索`BULLM_ExtendMotor`添加即可
 
 ```ini
 [env:myenv]
@@ -25,15 +25,16 @@ lib_deps =
 
 ```c++
 #include <Wire.h>
-#include "BULLM_ExtendMotor.h"
+#include <BULLM_ExtendMotor.h>
 
-BULLM_ExtendMotor motor(127); // 实例化，地址为127
+BULLM_ExtendMotor motor(0x7F); // 实例化，地址为0x7F
 
 void setup() {
     Wire.begin(4, 5); // 初始化I2C
     motor.begin(); // 初始化
     motor.setPWMFreq(1000); // 将PWM频率设置为1000Hz
-    motor.setSpeed(1, 255); // 设置第1通道电机的正转速度为255
+    motor.setSpeed(0, 255); // 设置第0通道电机的正转速度为255
+    motor.setSpeed(0, -255); // 设置第0通道电机的反转速度为255
 }
 ```
 
