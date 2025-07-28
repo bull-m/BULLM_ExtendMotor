@@ -1,20 +1,26 @@
 #include "BULLM_ExtendMotor.h"
 
-BULLM_ExtendMotor::BULLM_ExtendMotor(){
-    pwmDriver = new Adafruit_PWMServoDriver();
+int mapRange(long x, long in_min, long in_max, long out_min, long out_max) {
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
-BULLM_ExtendMotor::BULLM_ExtendMotor(const uint8_t addr){
-    pwmDriver = new Adafruit_PWMServoDriver(addr);
-}
-BULLM_ExtendMotor::BULLM_ExtendMotor(const uint8_t addr, TwoWire &i2c){
-    pwmDriver = new Adafruit_PWMServoDriver(addr, i2c);
-}
+
+BULLM_ExtendMotor::BULLM_ExtendMotor()
+: _i2caddr(0x7F), _i2c(&Wire) {}
+
+BULLM_ExtendMotor::BULLM_ExtendMotor(const uint8_t addr)
+: _i2caddr(addr), _i2c(&Wire) {}
+
+BULLM_ExtendMotor::BULLM_ExtendMotor(const uint8_t addr, TwoWire &i2c)
+: _i2caddr(addr), _i2c(&i2c) {}
 
 /*!
  *  @brief  设置I2C接口和硬件
  *  @return 如果成功则为true，否则为false
  */
 bool BULLM_ExtendMotor::begin() {
+    if (pwmDriver)
+        delete pwmDriver;
+    pwmDriver = new Adafruit_PWMServoDriver(_i2caddr, *_i2c);
     return pwmDriver->begin();
 }
 
@@ -53,7 +59,6 @@ void BULLM_ExtendMotor::setPWMFreq(float freq) {
  *  @param  val 从0到4096（含）。
  */
 void BULLM_ExtendMotor::setPin(uint8_t num, uint16_t val) {
-    pwmDriver->setPin(num, val);
     if (val == 4096) {
         // 信号完全开启的特殊值。
         pwmDriver->setPWM(num, 4096, 0);
@@ -81,7 +86,7 @@ void BULLM_ExtendMotor::stopAll(){
 void BULLM_ExtendMotor::setSpeed(uint8_t index, int value){
     if(value < -255) value = -255;
     if(value > 255) value = 255;
-    setSpeedHigh(index, (value + 255) * 8192 / 510 -4096);
+    setSpeedHigh(index, mapRange(value, -255, 255, -4096, 4096));
 }
 
 /*!

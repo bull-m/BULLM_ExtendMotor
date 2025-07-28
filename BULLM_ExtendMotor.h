@@ -50,7 +50,9 @@ public:
     void setSpeedHigh(uint8_t index, int value);
     void stopAll();
 private:
-    Adafruit_PWMServoDriver *pwmDriver = nullptr;
+    Adafruit_PWMServoDriver *pwmDriver;
+    uint8_t _i2caddr;
+    TwoWire *_i2c;
 };
 
 #endif
